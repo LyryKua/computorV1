@@ -1,4 +1,5 @@
 import argparse
+import re
 from Equation import Equation
 
 
@@ -19,20 +20,29 @@ def cli_argparse():
     return parser.parse_args()
 
 
+def validate_line(line):
+    tmp = re.search(r'(^[\d*^\-+X=x]*$)', line)
+    return tmp is not None
+
+
 def main():
     try:
         args = cli_argparse()
-        equation = Equation(args.equation.lower().replace(' ', ''))
-        exit("exit")
-        equation.validate()
-        print()
+        line = args.equation.lower().replace(' ', '')
+        if validate_line(line):
+            equation = Equation(line)
+            equation.normalize()
+            equation.validate()
+            equation.solve()
+            equation.print_answer()
+        else:
+            print('forbidden character(s)')
     except IndexError:
         exit('IndexError')
+    except ValueError as e:
+        exit(e)
     except Exception as e:
         exit(e)
-    # equation = args['equation']
-    # print(equation)
-    # print(type("tmp"))
 
 
 if __name__ == '__main__':
