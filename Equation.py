@@ -1,6 +1,6 @@
 import re
 import math
-from pprint import pprint
+import matplotlib.pyplot as plt
 
 
 def get_exp(line):
@@ -202,3 +202,14 @@ class Equation:
             ))
         print("\nThe solution is:")
         self.print_roots()
+
+    def draw_graph(self):
+        x = range(-100, 100)
+        y = list()
+        for i in x:
+            tmp = 0
+            for monomial in self.__basis:
+                tmp += monomial['coef'] * math.pow(i, monomial['exp'])
+            y.append(tmp)
+        plt.plot(x, y)
+        plt.show()

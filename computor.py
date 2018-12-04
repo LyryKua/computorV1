@@ -37,6 +37,8 @@ def main():
                 equation.print_steps()
             else:
                 equation.print_answer()
+            if args.graph:
+                equation.draw_graph()
             # equation.print_answer()
         else:
             print('forbidden character(s)')
