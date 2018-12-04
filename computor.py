@@ -26,7 +26,7 @@ def is_valid_line(line):
 
 
 def main():
-    try:
+    # try:
         args = cli_argparse()
         line = args.equation.lower().replace(' ', '')
         if is_valid_line(line):
@@ -42,9 +42,9 @@ def main():
             # equation.print_answer()
         else:
             print('forbidden character(s)')
-    except Exception as e:
+    # except Exception as e:
         # print(dir(e))
-        exit(e)
+        # exit(e)
 
 
 if __name__ == '__main__':

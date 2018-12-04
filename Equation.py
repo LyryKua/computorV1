@@ -45,7 +45,7 @@ class Equation:
             'x2': '',
         }
         self.__line = line
-        self.__d = 0
+        self.__d = -1
         self.__polynomial_degree = -1
 
         tmp = self.__line.split('=')
@@ -79,7 +79,9 @@ class Equation:
             })
         for monomial in self.__monomials:
             self.__basis[monomial['exp']]['coef'] += monomial['coef']
-        self.__basis = [x for x in self.__basis if x['coef'] != 0.0]
+        for monomial in self.__basis:
+            if monomial['coef'] == 0 and monomial['exp'] > 2:
+                self.__basis.remove(monomial)
         if len(self.__basis) == 0:
             print("Reduced form: 0*x^1 = 0")
             self.print_polynomial_degree(1)
@@ -204,12 +206,13 @@ class Equation:
         self.print_roots()
 
     def draw_graph(self):
-        x = range(-100, 100)
-        y = list()
-        for i in x:
-            tmp = 0
-            for monomial in self.__basis:
-                tmp += monomial['coef'] * math.pow(i, monomial['exp'])
-            y.append(tmp)
-        plt.plot(x, y)
-        plt.show()
+        if self.__d >= 0:
+            x = range(-100, 100)
+            y = list()
+            for i in x:
+                tmp = 0
+                for monomial in self.__basis:
+                    tmp += monomial['coef'] * math.pow(i, monomial['exp'])
+                y.append(tmp)
+            plt.plot(x, y)
+            plt.show()
