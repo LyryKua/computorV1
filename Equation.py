@@ -79,9 +79,9 @@ class Equation:
             })
         for monomial in self.__monomials:
             self.__basis[monomial['exp']]['coef'] += monomial['coef']
-        for monomial in self.__basis:
-            if monomial['coef'] == 0 and monomial['exp'] > 2:
-                self.__basis.remove(monomial)
+        tmp = [x for x in self.__basis if x['coef'] == 0.0 and x['exp'] > 2]
+        for item in tmp:
+            self.__basis.remove(item)
         if len(self.__basis) == 0:
             print("Reduced form: 0*x^1 = 0")
             self.print_polynomial_degree(1)
@@ -89,12 +89,13 @@ class Equation:
         self.__set_polynomial_degree()
 
     def __set_polynomial_degree(self):
+        print(len(self.__basis))
         self.__polynomial_degree = self.__basis[len(self.__basis) - 1]['exp']
 
     def solve(self):
         if self.__polynomial_degree > 2:
             self.print_reduce()
-            self.print_polynomial_degree()
+            self.print_polynomial_degree(self.__polynomial_degree)
             raise Exception('The polynomial degree is strictly greater than 2, I can\'t solve.')
         if self.__polynomial_degree == 2:
             self.solve_square_equation()
