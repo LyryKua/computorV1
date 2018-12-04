@@ -20,8 +20,8 @@ def cli_argparse():
     return parser.parse_args()
 
 
-def validate_line(line):
-    tmp = re.search(r'(^[\d*^\-+X=x]*$)', line)
+def is_valid_line(line):
+    tmp = re.search(r"^[-.*^+x\d]*=[-*^+x\d]*$", line)
     return tmp is not None
 
 
@@ -29,19 +29,19 @@ def main():
     try:
         args = cli_argparse()
         line = args.equation.lower().replace(' ', '')
-        if validate_line(line):
+        if is_valid_line(line):
             equation = Equation(line)
-            equation.normalize()
-            equation.validate()
+            equation.create_basis()
             equation.solve()
-            equation.print_answer()
+            if args.steps:
+                equation.print_steps()
+            else:
+                equation.print_answer()
+            # equation.print_answer()
         else:
             print('forbidden character(s)')
-    except IndexError:
-        exit('IndexError')
-    except ValueError as e:
-        exit(e)
     except Exception as e:
+        # print(dir(e))
         exit(e)
 
 
