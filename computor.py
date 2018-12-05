@@ -40,7 +40,8 @@ def main():
             if args.graph:
                 equation.draw_graph()
         else:
-            print('forbidden character(s)')
+            print('Forbidden character(s)')
+            print('Xx-+*=^ and digits are allowed')
     except Exception as e:
         exit(e)
 
