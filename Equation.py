@@ -213,7 +213,7 @@ class Equation:
         print(Color.END, end="")
 
     def draw_graph(self):
-        if self.__d >= 0:
+        if self.__d >= 0 or self.__polynomial_degree == 1:
             x = range(-100, 100)
             y = list()
             for i in x:
