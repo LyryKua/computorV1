@@ -102,7 +102,7 @@ class Equation:
         elif self.__polynomial_degree == 1:
             self.solve_linear_equation()
         else:
-            print("???")
+            raise Exception('It is not equation')
 
     def __right_to_left(self):
         self.__monomials = self.__polynomials['left']
@@ -213,13 +213,13 @@ class Equation:
         print(Color.END, end="")
 
     def draw_graph(self):
-        if self.__d >= 0 or self.__polynomial_degree == 1:
-            x = range(-100, 100)
-            y = list()
-            for i in x:
-                tmp = 0
-                for monomial in self.__basis:
-                    tmp += monomial['coef'] * math.pow(i, monomial['exp'])
-                y.append(tmp)
-            plt.plot(x, y)
-            plt.show()
+        # if self.__d >= 0 or self.__polynomial_degree == 1:
+        x = range(-100, 100)
+        y = list()
+        for i in x:
+            tmp = 0
+            for monomial in self.__basis:
+                tmp += monomial['coef'] * math.pow(i, monomial['exp'])
+            y.append(tmp)
+        plt.plot(x, y)
+        plt.show()
