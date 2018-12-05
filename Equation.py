@@ -1,6 +1,7 @@
 import re
 import math
 import matplotlib.pyplot as plt
+from Color import Color
 
 
 def get_exp(line):
@@ -89,7 +90,6 @@ class Equation:
         self.__set_polynomial_degree()
 
     def __set_polynomial_degree(self):
-        print(len(self.__basis))
         self.__polynomial_degree = self.__basis[len(self.__basis) - 1]['exp']
 
     def solve(self):
@@ -170,10 +170,14 @@ class Equation:
             print("{} = {}".format(key, value))
 
     def print_steps(self):
-        print("Right to left: ", end="")
+        print(Color.BOLD, end="")
+        print(Color.BLUE, end="")
+        print("Right to left: ")
         self.print_polynomial(self.__monomials)
+        print(Color.GREEN, end="")
         self.print_reduce()
         print()
+        print(Color.BLUE, end="")
         self.print_polynomial_degree(self.__polynomial_degree)
         print()
         if self.__polynomial_degree == 2:
@@ -203,8 +207,10 @@ class Equation:
                 b=self.__basis[0]['coef'],
                 x=self.__roots['x']
             ))
+        print(Color.GREEN, end="")
         print("\nThe solution is:")
         self.print_roots()
+        print(Color.END, end="")
 
     def draw_graph(self):
         if self.__d >= 0:
