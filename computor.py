@@ -39,11 +39,9 @@ def main():
                 equation.print_answer()
             if args.graph:
                 equation.draw_graph()
-            # equation.print_answer()
         else:
             print('forbidden character(s)')
     except Exception as e:
-        # print(dir(e))
         exit(e)
 
 
